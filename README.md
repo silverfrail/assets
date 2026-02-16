@@ -1,2 +1,0 @@
-# assets
-Assests for stream

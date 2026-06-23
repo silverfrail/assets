@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stream Mobile Dashboard</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #camera-feed {
+            width: 100%;
+            height: 50%;
+            border: none;
+            background: #222;
+        }
+        .chat-launcher {
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #18181b;
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            background-color: #9146ff;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VDO.Ninja Camera PUSH Link (Embeddable) -->
+    <iframe 
+        id="camera-feed" 
+        src="https://vdo.ninja/?password=123&push=TmfNACQ" 
+        allow="camera; microphone; autoplay; fullscreen" 
+        allowfullscreen>
+    </iframe>
+
+    <!-- Chat Launcher Section -->
+    <div class="chat-launcher">
+        <p>Chat is restricted from embedding.</p>
+        <button onclick="openDashboard()">Launch Session Chat</button>
+    </div>
+
+    <script>
+        function openDashboard() {
+            // Your specific authenticated session link
+            const url = "https://dashboard.twitch.tv/popout/u/silverfrailttv/stream-manager/chat?uuid=4837524019cf5d86056781a06ff663c2";
+            window.open(url, '_blank', 'location=yes,height=600,width=400,scrollbars=yes,status=yes');
+        }
+    </script>
+</body>
+</html>

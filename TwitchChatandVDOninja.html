@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stream Mobile Dashboard</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        /* Camera Feed at the top */
+        #camera-feed {
+            width: 100%;
+            height: 40%;
+            border: none;
+            background: #222;
+        }
+        /* StreamElements Chat Overlay at the bottom */
+        #chat-overlay {
+            width: 100%;
+            height: 60%;
+            border: none;
+            background: #18181b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VDO.Ninja Camera PUSH Link -->
+    <iframe 
+        id="camera-feed" 
+        src="https://vdo.ninja/?password=123&push=TmfNACQ" 
+        allow="camera; microphone; autoplay; fullscreen" 
+        allowfullscreen>
+    </iframe>
+
+    <!-- StreamElements Chat Overlay -->
+    <iframe 
+        id="chat-overlay" 
+        src="https://streamelements.com/overlay/6a3af5898dcdde5c1ca6ae33/V3mKL7IvIvWrWChkdZqli9iRNuOWzxr7Ecii4GtWDGtCIyOs" 
+        allow="autoplay">
+    </iframe>
+
+</body>
+</html>

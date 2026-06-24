@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Stream Output</title>
+<style>
+body { margin: 0; padding: 0; background: transparent; overflow: hidden; background-color: transparent; }
+#canvas-wrapper {
+  position: absolute;
+  width: 1080px;
+  height: 1920px;
+  transform-origin: top left;
+}
+
+iframe { 
+  position: absolute; 
+  border: none; 
+  background: transparent; 
+  transform-origin: top left;
+}
+
+/* Styled Launch Screen */
+#audio-launch-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(17, 17, 17, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 0.2s;
+}
+
+.launch-btn {
+  background: #111;
+  border: 2px solid #5CFF5C;
+  color: #5CFF5C;
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 20px 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 25px rgba(0, 0, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+
+<div id="audio-launch-screen">
+  <div class="launch-btn">Tap to Connect</div>
+</div>
+
+<div id="canvas-wrapper">
+  </div>
+
+<script>
+// Embedded Data Payload for Re-importing
+const OVERLAY_DATA = [{"id":"overlay_1","url":"https://obs.blerp.com/pwn/dhtiuvmk_hzz","x":0,"y":0,"scale":1,"crop":{"t":0,"r":0,"b":0,"l":0},"interactive":false,"zIndex":10}];
+
+const canvasWidth = 1080;
+const canvasHeight = 1920;
+
+function resizeCanvas() {
+  const wrapper = document.getElementById('canvas-wrapper');
+  const scaleX = window.innerWidth / canvasWidth;
+  const scaleY = window.innerHeight / canvasHeight;
+  const scale = Math.min(scaleX, scaleY);
+  
+  const scaledWidth = canvasWidth * scale;
+  const scaledHeight = canvasHeight * scale;
+  const leftOffset = Math.max(0, (window.innerWidth - scaledWidth) / 2);
+  const topOffset = Math.max(0, (window.innerHeight - scaledHeight) / 2);
+
+  wrapper.style.transform = 'translate(' + leftOffset + 'px, ' + topOffset + 'px) scale(' + scale + ')';
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// ==========================================
+// LATE INJECTION ENGINE
+// ==========================================
+const launchScreen = document.getElementById('audio-launch-screen');
+const wrapper = document.getElementById('canvas-wrapper');
+
+if (launchScreen) {
+  launchScreen.addEventListener('click', () => {
+    
+    // 1. Force audio route open during the click event
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) {
+      const audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const oscillator = audioCtx.createOscillator();
+      oscillator.connect(audioCtx.destination);
+      oscillator.start(0);
+      oscillator.stop(0.001);
+    }
+
+    // 2. Inject the iframes precisely during this authorized user gesture
+    OVERLAY_DATA.forEach(o => {
+      if (!o.url) return;
+      const iframe = document.createElement('iframe');
+      iframe.id = o.id;
+      iframe.src = o.url;
+      iframe.setAttribute('allow', 'autoplay; camera; microphone; picture-in-picture;');
+      
+      // Apply transforms
+      iframe.style.width = canvasWidth + 'px';
+      iframe.style.height = canvasHeight + 'px';
+      iframe.style.top = Math.round(o.y) + 'px';
+      iframe.style.left = Math.round(o.x) + 'px';
+      iframe.style.zIndex = o.zIndex;
+      iframe.style.transform = 'scale(' + o.scale.toFixed(4) + ')';
+      iframe.style.clipPath = 'inset(' + o.crop.t + 'px ' + o.crop.r + 'px ' + o.crop.b + 'px ' + o.crop.l + 'px)';
+      
+      // Apply interaction rule
+      iframe.style.pointerEvents = o.interactive ? 'auto' : 'none';
+      
+      wrapper.appendChild(iframe);
+    });
+
+    // 3. Remove launch screen
+    launchScreen.style.opacity = '0';
+    setTimeout(() => { launchScreen.style.display = 'none'; }, 200);
+  });
+}
+</script>
+</body>
+</html>

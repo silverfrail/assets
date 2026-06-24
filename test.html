@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+body { margin: 0; padding: 0; background: transparent; overflow: hidden; background-color: transparent; }
+#canvas-wrapper {
+  position: absolute;
+  width: 1080px;
+  height: 1920px;
+  transform-origin: top left;
+}
+iframe { position: absolute; border: none; background: transparent; }
+#overlay1 {
+      width: 1080px; height: 1920px;
+      top: 0px; left: 216px;
+      z-index: 10;
+      transform: scale(0.6000);
+      transform-origin: top left;
+      clip-path: inset(0px 0px 1006px 0px);
+    }
+#overlay2 {
+      width: 1080px; height: 1920px;
+      top: 437px; left: -231px;
+      z-index: 20;
+      transform: scale(1.4725);
+      transform-origin: top left;
+      clip-path: inset(326px 208px 929px 180px);
+    }
+#overlay3 {
+      width: 1080px; height: 1920px;
+      top: -196px; left: 8px;
+      z-index: 30;
+      transform: scale(1.0000);
+      transform-origin: top left;
+      clip-path: inset(660px 0px 903px 0px);
+    }
+#overlay4 {
+      width: 1080px; height: 1920px;
+      top: -274px; left: 0px;
+      z-index: 40;
+      transform: scale(1.0000);
+      transform-origin: top left;
+      clip-path: inset(823px 0px 823px 0px);
+    }
+#overlay5 {
+      width: 1080px; height: 1920px;
+      top: -2743px; left: 0px;
+      z-index: 50;
+      transform: scale(2.0010);
+      transform-origin: top left;
+      clip-path: inset(1646px 540px 0px 0px);
+    }
+
+</style>
+</head>
+<body>
+<div id="canvas-wrapper">
+<iframe id="overlay1" src="https://vdo.ninja/?password=123&push=TmfNACQ" allow="autoplay; camera; microphone; picture-in-picture;"></iframe>
+<iframe id="overlay2" src="https://streamelements.com/overlay/6a3af5898dcdde5c1ca6ae33/V3mKL7IvIvWrWChkdZqli9iRNuOWzxr7Ecii4GtWDGtCIyOs" allow="autoplay; camera; microphone; picture-in-picture;"></iframe>
+<iframe id="overlay3" src="https://streamelements.com/overlay/698f7d440ad2498d64f31ec1/V3mKL7IvIvWrWChkdZqli9iRNuOWzxr7Ecii4GtWDGtCIyOs" allow="autoplay; camera; microphone; picture-in-picture;"></iframe>
+<iframe id="overlay4" src="https://obs.blerp.com/pwn/dhtiuvmk_hzz" allow="autoplay; camera; microphone; picture-in-picture;"></iframe>
+<iframe id="overlay5" src="https://throne.com/stream-alerts/A9SKjejzY2NrfhCDivvLGWo3nAT2" allow="autoplay; camera; microphone; picture-in-picture;"></iframe>
+
+</div>
+<script>
+function resizeCanvas() {
+  const wrapper = document.getElementById('canvas-wrapper');
+  const cw = 1080;
+  const ch = 1920;
+  
+  const scaleX = window.innerWidth / cw;
+  const scaleY = window.innerHeight / ch;
+  
+  // Use Math.min to ensure the entire canvas always fits on screen without cropping
+  const scale = Math.min(scaleX, scaleY);
+  
+  const scaledWidth = cw * scale;
+  const scaledHeight = ch * scale;
+  
+  // Calculate offsets to center the wrapper if the screen is wider/taller than the layout aspect ratio
+  const leftOffset = Math.max(0, (window.innerWidth - scaledWidth) / 2);
+  const topOffset = Math.max(0, (window.innerHeight - scaledHeight) / 2);
+
+  wrapper.style.transform = 'translate(' + leftOffset + 'px, ' + topOffset + 'px) scale(' + scale + ')';
+}
+
+window.addEventListener('resize', resizeCanvas);
+// Run once on load to establish immediate centering
+resizeCanvas();
+</script>
+</body>
+</html>
